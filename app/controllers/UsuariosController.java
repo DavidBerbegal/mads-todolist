@@ -47,4 +47,15 @@ public class UsuariosController extends Controller {
         flash("grabaUsuario", "El usuario se ha grabado correctamente");
         return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
+
+    @Transactional
+    public Result detalleUsuario(String id) {
+      Usuario usuario = UsuariosService.findUsuario(id);
+
+      if(usuario == null){
+           return notFound(String.format("Usuario %s no existe", id));
+         }
+
+      return ok(formDetallesUsuario.render(usuario));
+    }
 }
