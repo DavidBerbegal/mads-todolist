@@ -19,3 +19,5 @@ GET     /usuarios                   controllers.UsuariosController.listaUsuarios
 GET     /usuarios/nuevo             controllers.UsuariosController.formularioNuevoUsuario()
 
 POST    /usuarios/nuevo             controllers.UsuariosController.grabaNuevoUsuario()
+
+GET     /usuarios/:id               controllers.UsuariosController.detalleUsuario(id: String)

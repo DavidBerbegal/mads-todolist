@@ -77,4 +77,14 @@ public class Usuario {
         }
         return true;
     }
+
+    public String cambiarFormatoFecha (){
+      if (fechaNacimiento == null){
+        return ("");
+      }
+      else{
+         SimpleDateFormat modificarFecha = new SimpleDateFormat("dd-MM-yyyy");
+         return modificarFecha.format(fechaNacimiento);
+      }
+    }
 }
