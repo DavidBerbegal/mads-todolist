@@ -87,4 +87,14 @@ public class Usuario {
          return modificarFecha.format(fechaNacimiento);
       }
     }
+
+    public boolean esNulo(){
+      if (nombre == null && apellidos == null && eMail == null
+        && fechaNacimiento == null && login == null && password == null) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
 }
