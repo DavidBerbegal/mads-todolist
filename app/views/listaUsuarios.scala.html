@@ -3,7 +3,7 @@
     <script type="text/javascript">
         function del(urlBorrar) {
             $.ajax({
-                url: urlBorrar,
+                url: urlBorra,
                 type: 'DELETE',
                 success: function(results) {
                     //refresh the page
@@ -19,10 +19,14 @@
     <h2> Listado de usuarios </h2>
 
     <ul>
+    ID:     Usuario:    Nombre:     Apellidos:    Opciones:
     @for(usuario <- usuarios) {
         <li>
-          Usuario @usuario.id: @usuario.login
-            <!--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> --> (Borrar)</a>
+          <p>
+          @usuario.id: @usuario.login @usuario.nombre @usuario.apellidos 
+          <a class="btn btn-primary" href="@routes.UsuariosController.editaUsuario(usuario.id: String)">Modificar</a>
+          <a class="btn btn-primary" href="@routes.UsuariosController.detalleUsuario(usuario.id: String)">Detalles</a>
+          <a class="btn btn-primary" href="@routes.UsuariosController.listaUsuarios()">Borrar</a></p>
         </li>
       }
 
@@ -33,4 +37,7 @@
             @mensaje
         </div>
     }
+
+    <a class="btn btn-primary" href="@routes.UsuariosController.grabaNuevoUsuario()">Añadir</a>
+
 }

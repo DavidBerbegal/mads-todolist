@@ -19,6 +19,10 @@ public class UsuarioDAO {
         return usuario;
     }
 
+    public static Usuario update(Usuario usuario) {
+      return JPA.em().merge(usuario);
+    }
+
     public static Usuario find(String idUsuario) {
         return JPA.em().find(Usuario.class, idUsuario);
     }
@@ -26,6 +30,22 @@ public class UsuarioDAO {
     public static List<Usuario> findAll() {
         TypedQuery<Usuario> query = JPA.em().createQuery(
                   "select u from Usuario u ORDER BY id", Usuario.class);
+
         return query.getResultList();
+    }
+
+    public static Usuario loginUser(Usuario usuario) {
+      try {
+        return (Usuario) JPA.em().createQuery("select u from Usuario u where u.login =" + "'" + usuario.login+ "'").getSingleResult();
+      }
+      catch(Exception NoResultException) {
+        Usuario  usuarioLogin = new Usuario();
+
+        if(usuario.login.equals("administrador") && usuario.password.equals("password")) {
+          return usuario;
+        }
+
+        return usuarioLogin;
+      }
     }
 }

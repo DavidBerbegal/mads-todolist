@@ -15,12 +15,15 @@ public class UsuariosService {
     }
 
     public static Usuario modificaUsuario(Usuario usuario) {
-      // ToDo
-      return usuario;
+      return UsuarioDAO.update(usuario);
     }
 
     public static Usuario findUsuario(String id) {
         return UsuarioDAO.find(id);
+    }
+
+    public static Usuario loginUsuario(Usuario usuario) {
+        return UsuarioDAO.loginUser(usuario);
     }
 
     public static boolean deleteUsuario(String id) {
