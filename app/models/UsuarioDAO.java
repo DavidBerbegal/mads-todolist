@@ -48,4 +48,9 @@ public class UsuarioDAO {
         return usuarioLogin;
       }
     }
+
+    public static void delete(String idUsuario) {
+        Usuario usuario = JPA.em().getReference(Usuario.class, idUsuario);
+        JPA.em().remove(usuario);
+    }
 }

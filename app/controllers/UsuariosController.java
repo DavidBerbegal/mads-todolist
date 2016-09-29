@@ -84,5 +84,15 @@ public class UsuariosController extends Controller {
       usuario = UsuariosService.modificaUsuario(usuario);
       flash("grabaUsuarioModificado", "El usuario se ha grabado correctamente");
       return redirect(controllers.routes.UsuariosController.listaUsuarios());
-	}
+	  }
+
+    @Transactional
+   public Result borraUsuario(String id) {
+     if (UsuariosService.deleteUsuario(id)) {
+      return ok();
+     }
+     else {
+      return notFound();
+     }
+   }
 }
