@@ -3,7 +3,7 @@
     <script type="text/javascript">
         function del(urlBorrar) {
             $.ajax({
-                url: urlBorra,
+                url: urlBorrar,
                 type: 'DELETE',
                 success: function(results) {
                     //refresh the page
@@ -17,20 +17,33 @@
 @main("Listado de usuarios", scripts) {
 
     <h2> Listado de usuarios </h2>
-
-    <ul>
-    ID:     Usuario:    Nombre:     Apellidos:    Opciones:
+    <table style = "width:50%">
+      <tr>
+        <td><h4>ID:</h4></td>
+        <td><h4>Usuario:</h4></td>
+        <td><h4>Nombre:</h4></td>
+        <td><h4>Apellidos</h4></td>
+        <td><h4>Opciones</h4></td>
+      </tr>
     @for(usuario <- usuarios) {
-        <li>
-          <p>
-          @usuario.id: @usuario.login @usuario.nombre @usuario.apellidos 
-          <a class="btn btn-primary" href="@routes.UsuariosController.editaUsuario(usuario.id: String)">Modificar</a>
-          <a class="btn btn-primary" href="@routes.UsuariosController.detalleUsuario(usuario.id: String)">Detalles</a>
-          <a class="btn btn-primary" href="@routes.UsuariosController.listaUsuarios()">Borrar</a></p>
-        </li>
+      <tr>
+        <td>@usuario.id:</td>
+        <td>@usuario.login</td>
+        <td>@usuario.nombre</td>
+        <td>@usuario.apellidos</td>
+        <td>
+          <a class="btn btn-primary" href="@routes.UsuariosController.editaUsuario(usuario.id)">Modificar</a>
+
+          <a onmouseover="" style="cursor: pointer;" href="@routes.UsuariosController.detalleUsuario(usuario.id)">
+          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+
+          <a onmouseover="" style="cursor: pointer;" onclick="del('@routes.UsuariosController.borraUsuario(usuario.id)')">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+        </td>
+      </tr>
       }
 
-    </ul>
+    </table>
 
     @if(mensaje != null) {
         <div class="alert alert-success">
