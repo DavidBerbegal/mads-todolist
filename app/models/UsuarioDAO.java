@@ -41,7 +41,7 @@ public class UsuarioDAO {
       catch(Exception NoResultException) {
         Usuario  usuarioLogin = new Usuario();
 
-        if(usuario.login.equals("administrador") && usuario.password.equals("password")) {
+        if(usuario.login.equals("admin") && usuario.password.equals("admin")) {
           return usuario;
         }
 
