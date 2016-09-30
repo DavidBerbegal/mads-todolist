@@ -95,4 +95,34 @@ public class UsuariosController extends Controller {
       return notFound();
      }
    }
+
+   public Result loginUsuario() {
+     return ok(formLoginUsuario.render(Form.form(Usuario.class),""));
+   }
+
+   @Transactional
+	 public Result autenticarUsuario() {
+		Form<Usuario> usuarioForm = Form.form(Usuario.class).bindFromRequest();
+
+		if (usuarioForm.hasErrors()) {
+			return badRequest(formLoginUsuario.render(usuarioForm, "Login erroneo"));
+    }
+
+		Usuario usuario = usuarioForm.get();
+		Usuario usuarioBD = UsuariosService.loginUsuario(usuario);
+
+		if(usuario.login == null) {
+      return badRequest(formLoginUsuario.render(usuarioForm,  "No existe el usuario"));
+    }
+
+    if(usuario.login.equals("admin") && usuario.password.equals("admin")) {
+			return redirect(controllers.routes.UsuariosController.listaUsuarios());
+    }
+
+    if(usuario.login == usuarioBD.login && usuario.password == usuarioBD.password) {
+      return ok(formBienvenida.render());
+    }
+
+    return badRequest(formLoginUsuario.render(usuarioForm, "Login erroneo"));
+	}
 }
