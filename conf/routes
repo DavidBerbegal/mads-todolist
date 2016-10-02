@@ -35,3 +35,7 @@ POST    /login                      controllers.UsuariosController.autenticarUsu
 GET     /                           controllers.UsuariosController.loginUsuario()
 
 POST    /                           controllers.UsuariosController.autenticarUsuario()
+
+GET     /registro                   controllers.UsuariosController.registroUsuario()
+
+POST    /registro                   controllers.UsuariosController.grabaNuevoRegistro()
