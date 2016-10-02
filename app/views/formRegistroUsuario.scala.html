@@ -1,0 +1,24 @@
+@(usuarioForm: Form[Usuario], mensaje: String)
+@main("Registro") {
+  @if(mensaje != "") {
+      <div class="alert alert-danger">
+          @mensaje
+      </div>
+  }
+
+  <h1>Registro</h1>
+  @helper.form(action = routes.UsuariosController.grabaNuevoRegistro()) {
+      <fieldset>
+          <legend>Registrar usuario</legend>
+          @helper.inputText(usuarioForm("login"), '_label -> "Login")
+          @helper.inputPassword(usuarioForm("password"), '_label -> "Password")
+          @helper.inputText(usuarioForm("nombre"), '_label -> "Nombre")
+          @helper.inputText(usuarioForm("apellidos"), '_label -> "Apellidos")
+          @helper.inputText(usuarioForm("eMail"), '_label -> "Correo electrónico")
+          @helper.inputText(usuarioForm("fechaNacimiento"), '_label -> "Fecha nacimiento (dd-mm-aaaa)")
+      </fieldset>
+      <p>
+      <input type="submit" class="btn btn-primary" value="Guardar">
+      </p>
+    }
+}

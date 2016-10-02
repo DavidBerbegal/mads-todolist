@@ -10,6 +10,7 @@ import static play.libs.Json.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.jpa.*;
+import static java.lang.System.out;
 
 import services.*;
 import models.*;
@@ -96,6 +97,7 @@ public class UsuariosController extends Controller {
      }
    }
 
+   @Transactional
    public Result loginUsuario() {
      return ok(formLoginUsuario.render(Form.form(Usuario.class),""));
    }
@@ -119,10 +121,43 @@ public class UsuariosController extends Controller {
 			return redirect(controllers.routes.UsuariosController.listaUsuarios());
     }
 
-    if(usuario.login == usuarioBD.login && usuario.password == usuarioBD.password) {
+    if(usuario.login.equals(usuarioBD.login) && usuario.password.equals(usuarioBD.password)) {
       return ok(formBienvenida.render());
     }
-
+    
     return badRequest(formLoginUsuario.render(usuarioForm, "Login erroneo"));
 	}
+
+  @Transactional
+  public Result registroUsuario() {
+    return ok(formRegistroUsuario.render(formFactory.form(Usuario.class),""));
+  }
+
+  @Transactional
+  public Result grabaNuevoRegistro() {
+    Form<Usuario> usuarioForm = formFactory.form(Usuario.class).bindFromRequest();
+
+    if (usuarioForm.hasErrors()) {
+        return badRequest(formCreacionUsuario.render(usuarioForm, "Hay errores en el formulario"));
+    }
+
+    Usuario usuario = usuarioForm.get();
+    Usuario usuarioBD = UsuariosService.loginUsuario(usuario);
+
+    if (usuarioBD.login != null) {
+      if (usuarioBD.password == null) {
+        usuario.id = usuarioBD.id;
+        usuario = UsuariosService.modificaUsuario(usuario);
+
+        return ok(formBienvenida.render());
+      }
+
+      return badRequest(formRegistroUsuario.render(usuarioForm, "Ya existe el usuario"));
+    }
+    else {
+      usuario = UsuariosService.grabaUsuario(usuario);
+
+      return ok(formBienvenida.render());
+    }
+  }
 }
