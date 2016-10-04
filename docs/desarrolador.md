@@ -361,3 +361,6 @@ Al igual que hemos en el apartado de registro, con la página ya probada y funci
 Por último solo queda especificar nuestro usuario y contraseña en GitHub y adjuntar el enlace del merge a "TIC" de Trello. Después de esto habrá terminado ya nuestra práctica 1.
 
 ## 4. Conclusión
+
+Mediante la realización de la práctica hemos podido aprender la parte más básica de Play Framework, para la realización de páginas web y de como se gestionan las bases de datos en dicho lenguaje JPA.
+Para mi humilde opinión sobre el lenguaje y demás cosas utilizadas para esta primera práctica es necesario decir que, una vez coges el ritmo de trabajo que te ofrece Play, es bastante fácil y metódico realizar nuevas funcionalidades. Por otra parte, la utilización de GitHub abre una ventana muy extensa de trabajo que te hace olvidar la posibilidad de guardar un cambio del cual no estás del todo seguro si funcionará de manera correcta, o si antes funcionaba de manera más óptima. Por último, la utilación de Trello ayuda bastante a situar al desarrollador/programar do al conjunto a determinar en todo momento cual es la tarea realizada hasta el momento y cuales son los objetivos a cumplir, algo que ayuda bastante a marcarse retos personales para poder lograrlos lo antes posible y de la mejor manera posible.
