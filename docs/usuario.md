@@ -22,24 +22,31 @@ Primeramente será necesario crear el proyecto en el directorio donde nosotros d
 Con el proyecto base ya creado, tan solo tenemos que compilar, arrancar el proyecto y empezar a crear todo aquello que necesitemos qe nuestra página realice; para ello será necesario utilizar los comandos "activator compile" y "activator run". Seguidamente, nuestra página ya será accesible desde un navegador mediante la [url] (http://localhost:9000/).
 
 ### 1.1 Login
-[Login](http://localhost:9000/)
+
+La primera página que encontramos en la web será el login. Para acceder a dicha pantalla utilzaremos el siguiente enlace: [Login](http://localhost:9000/)
 <img src="imagenes/usuario/1-Login.png" width="500px">
+Una vez tengamos la pantalla de login delante podremos acceder al sistema de diferentes maneras. La primera de todas será como administrador. 
 <img src="imagenes/usuario/2-Login.png" width="500px">
+Para acceder como administrador será necesario utilizar el usuario "admin" y la contraseña "admin". Esto provocará que se nos muestre por pantalla el listado de usuarios existentes en la página web hasta el momento.
 <img src="imagenes/usuario/3-Listado-de-Usuarios.png" width="500px">
+En caso de no disponer de la contraseña del administrador será necesario que nos registremos en la página, con el fin de poder tener más privilegios de los que se tienen sin ser usuario registrado o administrador del sistema.
 
 ### 1.2 Registro
-[Registro](http://localhost:9000/registro)
+Para poder acceder a la pantalla de registro podemos hacerlos de dos formas. La primera de ellas será mediante la url del registro: [Registro](http://localhost:9000/registro). Por otra parte, en la pantalla de login encontraremos un botón que nos llevará de manera directa a la pantalla de registro también. Una vez en la pantalla de registro nos encontramos con el siguiente aspecto:
 <img src="imagenes/usuario/4-Registro.png" width="500px">
+Con todos los campos rellenados de manera correcta, la web nos redigirá a la pantalla de bienvenida; lo cual será indicio de que ya somos usuarios registrados en la web. En caso contrario, por ejemplo, de que el formulario contenga algún tipo de error, la propia web nos informará del error. Los errores posibles serán vistos en próximos apartados.
 <img src="imagenes/usuario/5-Registro.png" width="500px">
 
 ### 1.3 Pantalla de bienvenida
+Con el registro realizados de manera exitosa nos encontraremos con la siguiente pantalla.
 <img src="imagenes/usuario/6-Bienvenida.png" width="500px">
+Mediante la visualización de dicha pantalla podemos decir de manera evidente que ya estamos registrados en la web!
 
 ### 1.4 Listado de usuarios
 <img src="imagenes/usuario/7-Listado-de-Usuarios-(Registro).png" width="500px">
 
 ### 1.5 Modificación de usuarios
-<img src="imagenes/usuario/8-Modificacion-usuario.png" width="500px">
+<img src="imagenes/usuario/8-Modificacion-Usuario.png" width="500px">
 
 ### 1.6 Detalle de usuario
 <img src="imagenes/usuario/9-Detalle-de-Usuario.png" width="500px">
