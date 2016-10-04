@@ -22,9 +22,9 @@ activator run
 
 ### 1.1 Login
 [Login](http://localhost:9000/)
-<img src="docs/imagenes/usuario/1.\ Login.png" width="500px">
-<img src="docs/imagenes/usuario/2.\ Login.png" width="500px">
-<img src="docs/imagenes/usuario/3.\ Listado\ de\ Usuarios.png" width="500px">
+<img src="docs/imagenes/usuario/1-Login.png" width="500px">
+<img src="docs/imagenes/usuario/2-Login.png" width="500px">
+<img src="docs/imagenes/usuario/3-Listado-de-Usuarios.png" width="500px">
 
 ### 1.2 Registro
 [Registro](http://localhost:9000/registro)
