@@ -113,6 +113,10 @@ Por lo que hace a la parte de errores, y siguiendo el orden que tienen el manual
 
 ##### 1.9.2.2 Contraseña incorrecta
 
+En caso de ingresar una contraseña incorrecta nos mostrará el siguiente mensaje por pantalla:
+
+<img src="imagenes/usuario/16-Login-(Error-password).png" width="500px">
+
 ##### 1.9.2.3 Crear usuario existente
 
 Cuando nos disponemos a crear un registrarnos en la página y el usuario ya se encuentra en la base de datos, el sistema nos mostrará una alerta para que cambiemos en campo login, y así poder registrarnos en la web.
