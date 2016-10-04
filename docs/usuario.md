@@ -1,4 +1,4 @@
-# Instrucciones de uso del gestor de taréas
+# Instrucciones de uso del gestor de tareas
 
 - [1. Instrucciones de uso de la aplicación] (#1-instrucciones-de-la-aplicacion)
     - [1.1 Login] (#11-login)
