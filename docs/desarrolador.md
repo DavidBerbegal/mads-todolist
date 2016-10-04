@@ -66,6 +66,8 @@ Primeramente, será necesario crear la rutas o las rutas que van a determinar co
   ...
   ```
 
+Cabe comentar que el **GET** y el **POST** se utilizan para determinar que la parte del **POST** no puede mostrarse por pantalla si no se ha completado la acción del **GET** de manera correcta.
+
 #### 3.1.3 Creación de la acción
 
 Después de haber creado las diferentes rutas vamos a proceder a crear las diferentes acciones que realizará nuestra página de registro. Para ello hemos utilizado los siguientes fragmentos de código dentro del archivo **controllers/UsuariosController.java
@@ -237,22 +239,125 @@ Una vez ya terminada la función de registro y verificado su correcto funcionami
   $ git push
   ```
   
-Después de completar estos pasos, tan solo tendremos que poner nuestro usuario y contraseña de GitHub para que nuestros cambios surjan efecto.
+Después de completar estos pasos, tan solo tendremos que poner nuestro usuario y contraseña de GitHub para que nuestros cambios surjan efecto. Antes de cambiar de función, subiremos a Trello el enlace del merge que acabamos de realizar y daremos esta tarea por terminada.
 
 ### 3.2 Login
 
 #### 3.2.1 Pasos previos
 
+Al igual que hemos creado para el apartado del registro una nueva rama donde trabajar, en esta funcionalidad realizaremos las mismas acciones.
+
+ ```
+  $ git checkout -b tic-8-login
+  Switched to a new branch 'tic-8-login'
+  mads@mads:~/Escritorio/GitHub/mads-todolist$ git branch
+  * tic-9-login
+  master
+  ```
+
 #### 3.2.2 Creación de la ruta
+
+Con el fin de simplificar la extensión de la documentación, para explicar la funcionalidad del login solo vamos a mostrar las funciones empleadas para que funcione esta nueva función, evitando así colocar otra vez todas las librerías y demás utilizadas para el corrector funcionamiento de la aplicación.
+
+  ````
+  GET     /login                      controllers.UsuariosController.loginUsuario()
+  POST    /login                      controllers.UsuariosController.autenticarUsuario()
+
+  GET     /                           controllers.UsuariosController.loginUsuario()
+  POST    /                           controllers.UsuariosController.autenticarUsuario()
+  ```
+  
+Para esta función hemos decidido crear 4 rutas diferentes para llamar al login, aunque verdaderamente son solo dos **localhost:9000/** y **localhost:9000/login**. **localhost:9000/** hemos decidido añadirla también ya que consideramos que para esta primera práctica puede ser nuestra página principal, debido a que casi todas la funciones dependen de dicha página.
 
 #### 3.2.3 Creación de la acción
 
+Esta secuencia de código que se muestra a continuación es el que provoca que el login de la página funcione de de manera correcta. La función **public Result loginUsuario()** llamamos a la vista de login, mientras que en la función restante tenemos que verificar si los datos introducidos son correctos o no.
+Primeramente, y al igual que haciamos en la función de registro, verificamos que el formulario, que esta vez tan solo tiene los campos login y contraseña, esté completo.
+Por otra parte, si el usuario no inserta un login, el sistema mostrará el error de que el usuario no existe. Seguidamente, en caso de que se trate de un administrador del sistema, cuyo usuario sea **admin** y contraseña **admin**, se nos abrirá de manera directa la pantalla de bienvenida, lo cual significa que el usuario se ha autenticado de manera correcta.
+En caso de que el usuario se encuentre en la base de datos y la contraseña sea correcta, el sistema nos mostrará también el mensaje de bienvenida, por el contrario, si el usuario no existe se mostrará un mensaje indicando dicha incidencia.
+
+  ```
+  ...
+  @Transactional
+   public Result loginUsuario() {
+     return ok(formLoginUsuario.render(Form.form(Usuario.class),""));
+   }
+
+   @Transactional
+	 public Result autenticarUsuario() {
+		Form<Usuario> usuarioForm = Form.form(Usuario.class).bindFromRequest();
+
+		if (usuarioForm.hasErrors()) {
+			return badRequest(formLoginUsuario.render(usuarioForm, "Login erroneo"));
+    }
+
+		Usuario usuario = usuarioForm.get();
+		Usuario usuarioBD = UsuariosService.loginUsuario(usuario);
+
+		if(usuario.login == null) {
+      return badRequest(formLoginUsuario.render(usuarioForm,  "No existe el usuario"));
+    }
+
+    if(usuario.login.equals("admin") && usuario.password.equals("admin")) {
+			return redirect(controllers.routes.UsuariosController.listaUsuarios());
+    }
+
+    if(usuario.login.equals(usuarioBD.login) && usuario.password.equals(usuarioBD.password)) {
+      return ok(formBienvenida.render());
+    }
+    
+    return badRequest(formLoginUsuario.render(usuarioForm, "Login erroneo"));
+	}
+  ...
+  ```
+
 #### 3.2.4 Creación de la vista
+
+La creación de la vista del usuario será bastante más corta que la del registro, debido a que el login tan solo contiene dos campos. Este es el aspecto que tiene el código de la vista del login:
+
+  ```
+  ...
+  @(usuarioForm: Form[Usuario], mensaje: String)
+  @main("Login") {
+    @if(mensaje != "") {
+        <div class="alert alert-danger">
+            @mensaje
+        </div>
+    }
+    <h1>Login</h1>
+    @helper.form(action = routes.UsuariosController.autenticarUsuario()) {
+         <fieldset>
+            @helper.inputText(usuarioForm("login"), '_label -> "Login")
+            @helper.inputPassword(usuarioForm("password"), '_label -> "Password")
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="Login">
+        <a class="btn btn-primary" href="@routes.UsuariosController.registroUsuario()">Registrar</a>
+    }
+  }
+  ...
+  ```
 
 #### 3.2.5 Creación de los Services
 
+Al igual que pasaba en la función registro, el UsuarioServices hará la llamada al UsuarioDAO, para que este haga una consulta a la base de datos y verifique si existe un usuario o no. El código de este apartado es igual que el código adjuntado para realizar el registro.
+
 #### 3.2.6 Creación del UsuarioDAO
 
+Para esta parte del login hemos utilizado la misma función que teniamos en el registro de un usuario.
+
 #### 3.2.7 Subida al repositorio
+
+Al igual que hemos en el apartado de registro, con la página ya probada y funcionando de manera correcta, procedemos a subir nuestros cambios a GitHub.
+
+  ```
+  $ git add .
+  $ git commit -am "TIC-9 Añadida Página la página de login"
+  $ git checkout master
+  $ git merge --no-ff tic-9-login -m "TIC-9 Merge Página de login"
+  $ git branch -d tic-9-login
+  $ git push
+  ```
+
+Por último solo queda especificar nuestro usuario y contraseña en GitHub y adjuntar el enlace del merge a "TIC" de Trello. Después de esto habrá terminado ya nuestra práctica 1.
 
 ## 4. Conclusión
