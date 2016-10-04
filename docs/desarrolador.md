@@ -23,7 +23,17 @@
 
 ## 1. Introducción
 
+La primera práctica de la asignatura de MADS se basa en el desarrollo de una página en lenguaje Play Framwork (Java). La práctica consta de dos partes. La primera de ellas es guiada y nos muestra paso por paso todo lo que tenemos que crear, como tenemos que ejecutarlo y como debemos guardarlo en GitHub. El resto de funcionalidades de esta parte se realizan de manera muy similar a las guiadas.
+En la segunda parte de la práctica tenemos que añadir a la página dos funcionalidades nuevas, como son el registro y el login.
+
 ## 2. Pasos empleados en el desarrollo de cada funcionalidad
+
+Para desarrollar cada una de las funciones de la práctica hemos seguido diversos pasos, que son iguales para todas las funcionalidades, con el fin de tener un desarrollo sencillo, ordenado y claro de las funciones.
+Los pasos que hemos seguido son:
+- Creamos una nueva rama en GitHub, para evitar trabajar en la rama master y que tengamos algún error que no impida volver a un estado anterior donde funcionaba la aplicación de manera distinta a la que nos encontramos en ese preciso instante.
+- Configuramos el archivo de rutas de la página. Con esta acción permitimos al navegador acceder a una determinada vista de la página mediante una url que se escriba en el navegador.
+- La vista es aquello que se muestra en el navegador cuando accedemos a su dirección url.
+- El archivo de UsuariosController.java
 
 ## 3. Funcionalidades adicionales
 
