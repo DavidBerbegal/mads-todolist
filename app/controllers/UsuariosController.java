@@ -52,7 +52,7 @@ public class UsuariosController extends Controller {
     }
 
     @Transactional
-    public Result detalleUsuario(String id) {
+    public Result detalleUsuario(Integer id) {
       Usuario usuario = UsuariosService.findUsuario(id);
 
       if(usuario == null) {
@@ -63,7 +63,7 @@ public class UsuariosController extends Controller {
     }
 
     @Transactional
-    public Result editaUsuario(String id) {
+    public Result editaUsuario(Integer id) {
       Usuario usuario = UsuariosService.findUsuario(id);
 
       Form<Usuario> formulario = Form.form(Usuario.class);
@@ -88,7 +88,7 @@ public class UsuariosController extends Controller {
 	  }
 
     @Transactional
-   public Result borraUsuario(String id) {
+   public Result borraUsuario(Integer id) {
      if (UsuariosService.deleteUsuario(id)) {
       return ok();
      }
@@ -124,7 +124,7 @@ public class UsuariosController extends Controller {
     if(usuario.login.equals(usuarioBD.login) && usuario.password.equals(usuarioBD.password)) {
       return ok(formBienvenida.render());
     }
-    
+
     return badRequest(formLoginUsuario.render(usuarioForm, "Login erroneo"));
 	}
 

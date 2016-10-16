@@ -20,13 +20,13 @@ GET     /usuarios/nuevo             controllers.UsuariosController.formularioNue
 
 POST    /usuarios/nuevo             controllers.UsuariosController.grabaNuevoUsuario()
 
-GET     /usuarios/:id               controllers.UsuariosController.detalleUsuario(id: String)
+GET     /usuarios/:id               controllers.UsuariosController.detalleUsuario(id: Integer)
 
-GET     /usuarios/:id/editar        controllers.UsuariosController.editaUsuario(id: String)
+GET     /usuarios/:id/editar        controllers.UsuariosController.editaUsuario(id: Integer)
 
 POST    /usuarios/modifica          controllers.UsuariosController.grabaUsuarioModificado()
 
-DELETE  /usuarios/:id               controllers.UsuariosController.borraUsuario(id: String)
+DELETE  /usuarios/:id               controllers.UsuariosController.borraUsuario(id: Integer)
 
 GET     /login                      controllers.UsuariosController.loginUsuario()
 
