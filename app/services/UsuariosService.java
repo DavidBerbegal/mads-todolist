@@ -18,7 +18,7 @@ public class UsuariosService {
       return UsuarioDAO.update(usuario);
     }
 
-    public static Usuario findUsuario(String id) {
+    public static Usuario findUsuario(Integer id) {
         return UsuarioDAO.find(id);
     }
 
@@ -26,7 +26,7 @@ public class UsuariosService {
         return UsuarioDAO.loginUser(usuario);
     }
 
-    public static boolean deleteUsuario(String id) {
+    public static boolean deleteUsuario(Integer id) {
         UsuarioDAO.delete(id);
 
         return true;
