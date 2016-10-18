@@ -36,16 +36,15 @@ public class UsuarioDAO {
 
     public static Usuario loginUser(Usuario usuario) {
       try {
-        return (Usuario) JPA.em().createQuery("select u from Usuario u where u.login =" + "'" + usuario.login+ "'").getSingleResult();
+        return (Usuario) JPA.em().createQuery("select u from Usuario u where u.login =" + "'" + usuario.login + "'").getSingleResult();
       }
       catch(Exception NoResultException) {
-        Usuario  usuarioLogin = new Usuario();
-
         if(usuario.login.equals("admin") && usuario.password.equals("admin")) {
           return usuario;
         }
-
-        return usuarioLogin;
+        else {
+          return null;
+        }
       }
     }
 
