@@ -21,13 +21,13 @@ public class UsuariosService {
     }
 
     public static Usuario modificaUsuario(Usuario usuario) {
-      Usuario usuarioModificado = UsuarioDAO.loginUser(usuario);
+        Usuario usuarioModificado = UsuarioDAO.loginUser(usuario);
 
-      if (usuarioModificado != null && usuario.id != usuarioModificado.id) {
-        throw new UsuariosException("El usuario con login: " + usuario.login + " ya existe en la BD");
-      }
+        if (usuarioModificado != null && usuario.id != usuarioModificado.id) {
+          throw new UsuariosException("El usuario con login: " + usuario.login + " ya existe en la BD");
+        }
 
-      return UsuarioDAO.update(usuario);
+        return UsuarioDAO.update(usuario);
     }
 
     public static Usuario findUsuario(Integer id) {
@@ -35,6 +35,9 @@ public class UsuariosService {
     }
 
     public static Usuario loginUsuario(Usuario usuario) {
+        if (usuario.login == null) {
+            throw new UsuariosException("No se puede buscar un usuario con login = null");
+        }
         return UsuarioDAO.loginUser(usuario);
     }
 

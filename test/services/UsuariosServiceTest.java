@@ -90,4 +90,50 @@ public class UsuariosServiceTest {
             }
         });
     }
+
+    @Test
+    public void grabaUsuarioServices() {
+        jpa.withTransaction(() -> {
+            Usuario usuario = new Usuario("usuario1", "Usuario1");
+            UsuariosService.grabaUsuario(usuario);
+            Usuario usuario2 = UsuariosService.loginUsuario(usuario);
+            assertThat(usuario.login, equalTo(usuario2.login));
+        });
+    }
+
+    @Test
+    public void buscarUsuarioServices() {
+        jpa.withTransaction(() -> {
+            Usuario usuario = new Usuario("usuarioBuscar", "usuarioBuscar");
+            UsuariosService.grabaUsuario(usuario);
+            Usuario usuario2 = UsuariosService.findUsuario(usuario.id);
+            assertThat(usuario2.id, equalTo(usuario.id));
+        });
+    }
+
+    @Test
+    public void loginUsuarioServicesExcepcionLoginNull() {
+        jpa.withTransaction(() -> {
+            Usuario usuario = new Usuario();
+
+            try {
+                Usuario usuario2 = UsuariosService.loginUsuario(usuario);
+                fail("No ha saltado la excepción LoginNull");
+            }
+            catch(UsuariosException e) {
+                System.out.println("Error: " + e);
+            }
+        });
+    }
+
+    @Test
+    public void borrarUsuariosServices() {
+        jpa.withTransaction(() -> {
+            Usuario usuario = new Usuario("usuarioBorrar", "usuarioBorrar");
+            UsuariosService.grabaUsuario(usuario);
+            UsuariosService.deleteUsuario(usuario.id);
+            Usuario usuario2 = UsuariosService.loginUsuario(usuario);
+            assertNull(usuario2);
+        });
+    }
 }
