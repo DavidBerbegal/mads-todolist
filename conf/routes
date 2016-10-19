@@ -39,3 +39,5 @@ POST    /                           controllers.UsuariosController.autenticarUsu
 GET     /registro                   controllers.UsuariosController.registroUsuario()
 
 POST    /registro                   controllers.UsuariosController.grabaNuevoRegistro()
+
+GET     /usuarios/:id/tareas        controllers.TareasController.listaTareas(id: Integer)
