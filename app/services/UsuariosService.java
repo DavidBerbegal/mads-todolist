@@ -11,10 +11,22 @@ import models.*;
 
 public class UsuariosService {
     public static Usuario grabaUsuario(Usuario usuario) {
-        return UsuarioDAO.create(usuario);
+      Usuario usuarioComprobarLogin = UsuarioDAO.loginUser(usuario);
+
+      if (usuarioComprobarLogin != null) {
+        throw new UsuariosException("El usuario con login: " + usuario.login + " ya existe en la BD");
+      }
+
+      return UsuarioDAO.create(usuario);
     }
 
     public static Usuario modificaUsuario(Usuario usuario) {
+      Usuario usuarioModificado = UsuarioDAO.loginUser(usuario);
+
+      if (usuarioModificado != null && usuario.id != usuarioModificado.id) {
+        throw new UsuariosException("El usuario con login: " + usuario.login + " ya existe en la BD");
+      }
+
       return UsuarioDAO.update(usuario);
     }
 
