@@ -6,6 +6,7 @@ import play.db.jpa.*;
 import org.junit.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import java.util.List;
 
 import models.*;
 
@@ -61,25 +62,38 @@ public class UsuarioDaoTest {
     @Test
     public void actualizarUsuario() {
         jpa.withTransaction(() -> {
-            // crear un usuario
-            // cambios sus atributos
-            // actualizo sus datos (guardo en la bd los cambios echos)
-            // creo un usuario nuevo = usuario login que acabo de crear(igual que arriba (Usuario usuarioBuscar = UsuarioDAO.loginUser(usuario);)
-            // compruebo que el campo que he editado se ha actualizado (assertThat(usuario.login, equalTo("pepe"));)
+            Usuario usuario = new Usuario("David", "David");
+            UsuarioDAO.create(usuario);
+            usuario.login = "login_modificado";
+            UsuarioDAO.update(usuario);
+            Usuario comprobar = UsuarioDAO.loginUser(usuario);
+            assertThat(comprobar.login, equalTo("login_modificado"));
         });
     }
 
     @Test
     public void borrarUsuario() {
         jpa.withTransaction(() -> {
+            Usuario usuario = new Usuario("UsuarioBorrar", "UsuarioBorrar");
+            UsuarioDAO.create(usuario);
+            UsuarioDAO.delete(usuario.id);
+            UsuarioDAO.find(usuario.id);
         });
     }
 
     @Test
     public void buscaTodosUsuarios() {
         jpa.withTransaction(() -> {
-          // Creo varios usuarioBuscar
-          // hago un findAll y verifico que estan todos los insertados
+            Usuario usuario1 = new Usuario("Usuario1", "Usuario1");
+            UsuarioDAO.create(usuario1);
+            Usuario usuario2 = new Usuario("Usuario2", "Usuario2");
+            UsuarioDAO.create(usuario2);
+            Usuario usuario3 = new Usuario("Usuario3", "Usuario3");
+            UsuarioDAO.create(usuario3);
+            List<Usuario> usuarios = UsuarioDAO.findAll();
+            assertThat(usuarios.get(0).login, equalTo("Usuario1"));
+            assertThat(usuarios.get(1).login, equalTo("Usuario2"));
+            assertThat(usuarios.get(2).login, equalTo("Usuario3"));
         });
     }
 }
