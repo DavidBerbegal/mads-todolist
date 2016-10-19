@@ -40,4 +40,4 @@ GET     /registro                   controllers.UsuariosController.registroUsuar
 
 POST    /registro                   controllers.UsuariosController.grabaNuevoRegistro()
 
-# GET     /usuarios/:id/tareas        
+GET     /usuarios/:id/tareas        controllers.TareasController.listaTareas(id: Integer)

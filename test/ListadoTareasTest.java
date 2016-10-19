@@ -11,8 +11,10 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import models.*;
+import services.*;
 
 public class ListadoTareasTest {
 
@@ -94,4 +96,22 @@ public class ListadoTareasTest {
            assertEquals(usuario.tareas.size(), 3);
        });
    }
+
+   @Test
+    public void listadoTareasService() {
+        jpa.withTransaction(() -> {
+            List<Tarea> tareas = TareasService.listaTareasUsuario(1);
+            assertEquals(tareas.size(), 3);
+
+            // Comprobamos que las tareas se devuelven ordenadas por id
+
+            Tarea anterior = null;
+            for (Tarea t : tareas) {
+                if (anterior != null) {
+                    assertTrue(anterior.id < t.id);
+                    anterior = t;
+                }
+            }
+        });
+    }
 }
