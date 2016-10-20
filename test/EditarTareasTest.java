@@ -16,7 +16,7 @@ import java.util.List;
 import models.*;
 import services.*;
 
-public class AgregarTareasTest {
+public class EditarTareasTest {
 
     static Database db;
     static JPAApi jpa;
