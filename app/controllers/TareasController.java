@@ -51,4 +51,27 @@ public class TareasController extends Controller {
 
       return redirect(controllers.routes.TareasController.listaTareas(usuarioId));
   }
+
+  @Transactional
+  public Result editarTarea(Integer id, Integer idTarea) {
+      Tarea tarea = TareasService.findTarea(idTarea);
+      Form<Tarea> formularioModificarTarea = Form.form(Tarea.class);
+      Form<Tarea> tareaForm = formularioModificarTarea.fill(tarea);
+      return ok(formModificacionTarea.render(tareaForm,id,""));
+  }
+
+  @Transactional
+  public Result grabaTareaModificada(Integer idTarea) {
+      Form<Tarea> tareaForm = Form.form(Tarea.class).bindFromRequest();
+
+      if (tareaForm.hasErrors()) {
+          return badRequest(formModificacionTarea.render(tareaForm, idTarea, "Hay errores en el formulario"));
+      }
+
+      Tarea tarea = tareaForm.get();
+      tarea = TareasService.modificaTarea(tarea);
+      tarea.usuario = UsuariosService.findUsuario(idTarea);
+      flash("grabaTareaModificada", "La tarea se ha grabado correctamente");
+      return redirect(controllers.routes.TareasController.listaTareas(idTarea));
+  }
 }
