@@ -15,7 +15,6 @@ import javax.inject.*;
 import java.util.List;
 
 public class TareasController extends Controller {
-
     @Transactional(readOnly = true)
     public Result listaTareas(Integer usuarioId) {
         String aviso = flash("aviso");
@@ -31,4 +30,25 @@ public class TareasController extends Controller {
             return ok(listaTareas.render(tareas, usuario, aviso, error));
         }
     }
+
+    // Devuelve un formulario para crear una nueva tarea
+     public Result formularioNuevaTarea(Integer idUsuario) {
+         return ok(formCreacionTarea.render(Form.form(Tarea.class),idUsuario,""));
+    }
+
+    @Transactional
+    public Result grabaNuevaTarea(Integer usuarioId) {
+      Form<Tarea> tareaForm = Form.form(Tarea.class).bindFromRequest();
+
+      if (tareaForm.hasErrors()) {
+          return badRequest(formCreacionTarea.render(tareaForm,usuarioId, "Hay errores en el formulario"));
+      }
+
+      Tarea tarea = tareaForm.get();
+      tarea.usuario = UsuariosService.findUsuario(usuarioId);
+      tarea = TareasService.grabaTarea(tarea);
+      flash("creaTarea", "El usuario se ha grabado correctamente");
+
+      return redirect(controllers.routes.TareasController.listaTareas(usuarioId));
+  }
 }
