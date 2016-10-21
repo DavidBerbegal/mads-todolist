@@ -27,7 +27,7 @@ public class TareasController extends Controller {
         }
         else {
             List<Tarea> tareas = TareasService.listaTareasUsuario(usuarioId);
-            return ok(listaTareas.render(tareas, usuario, aviso, error));
+            return ok(listaTareas.render(tareas, usuario.id, error));
         }
     }
 
