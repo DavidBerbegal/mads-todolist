@@ -50,18 +50,18 @@ public class TareasController extends Controller {
       flash("creaTarea", "El usuario se ha grabado correctamente");
 
       return redirect(controllers.routes.TareasController.listaTareas(usuarioId));
-  }
+    }
 
-  @Transactional
-  public Result editarTarea(Integer id, Integer idTarea) {
+    @Transactional
+    public Result editarTarea(Integer id, Integer idTarea) {
       Tarea tarea = TareasService.findTarea(idTarea);
       Form<Tarea> formularioModificarTarea = Form.form(Tarea.class);
       Form<Tarea> tareaForm = formularioModificarTarea.fill(tarea);
       return ok(formModificacionTarea.render(tareaForm,id,""));
-  }
+    }
 
-  @Transactional
-  public Result grabaTareaModificada(Integer idTarea) {
+    @Transactional
+    public Result grabaTareaModificada(Integer idTarea) {
       Form<Tarea> tareaForm = Form.form(Tarea.class).bindFromRequest();
 
       if (tareaForm.hasErrors()) {
@@ -73,5 +73,15 @@ public class TareasController extends Controller {
       tarea.usuario = UsuariosService.findUsuario(idTarea);
       flash("grabaTareaModificada", "La tarea se ha grabado correctamente");
       return redirect(controllers.routes.TareasController.listaTareas(idTarea));
-  }
+    }
+
+    @Transactional
+    public Result borrarTarea(Integer idUsuario, Integer idTarea) {
+      if (TareasService.deleteTarea(idTarea)) {
+        return redirect(controllers.routes.TareasController.listaTareas(idUsuario));
+      }
+      else {
+        return notFound();
+      }
+    }
 }

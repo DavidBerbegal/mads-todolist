@@ -7,8 +7,8 @@ import models.*;
 
 public class TareasService {
 
-    public static List<Tarea> listaTareasUsuario(Integer usuarioId) {
-        Usuario usuario = UsuarioDAO.find(usuarioId);
+    public static List<Tarea> listaTareasUsuario(Integer idUsuario) {
+        Usuario usuario = UsuarioDAO.find(idUsuario);
         if (usuario != null) {
             return usuario.tareas;
         } else {
@@ -20,11 +20,16 @@ public class TareasService {
     	 return TareaDAO.create(tarea);
     }
 
-    public static Tarea findTarea(Integer id) {
-      return TareaDAO.find(id);
+    public static Tarea findTarea(Integer idTarea) {
+      return TareaDAO.find(idTarea);
     }
-    
+
     public static Tarea modificaTarea(Tarea tarea) {
        return TareaDAO.update(tarea);
+   }
+
+   public static boolean deleteTarea(Integer idTarea) {
+       TareaDAO.delete(idTarea);
+       return true;
    }
 }
