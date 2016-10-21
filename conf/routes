@@ -49,3 +49,5 @@ POST	  /usuarios/:id/tareas/nueva 	            controllers.TareasController.grab
 GET     /usuarios/:id/tareas/:idTarea/editar    controllers.TareasController.editarTarea(id: Integer, idTarea: Integer)
 
 POST    /usuarios/:id/tareas/grabaTarea         controllers.TareasController.grabaTareaModificada(id: Integer)
+
+DELETE 	/usuarios/:id/tareas/:idTarea/ 			    controllers.TareasController.borrarTarea(id: Integer, idTarea: Integer)
